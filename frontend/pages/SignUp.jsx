@@ -36,9 +36,6 @@ export default function SignUp() {
         setErrorMessage("An unexpected error occurred. Please try again.");
       }
     }
-    if (!errorMessage) {
-      route;
-    }
   }
 
   return (

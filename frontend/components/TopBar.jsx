@@ -4,6 +4,7 @@ import axios from "axios";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import { verifyContext } from "../context/VerifyContext";
+import Logout from "./Logout";
 
 export default function TopBar({ HeadingText, SecondaryText, ButtonText }) {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ export default function TopBar({ HeadingText, SecondaryText, ButtonText }) {
       <div className="flex justify-between items-center max-w-screen-md mx-auto">
         <h1 className="text-xl font-semibold mb-4 mt-4">{HeadingText}</h1>
         <div className="flex gap-2 items-center">
-          {ButtonText && <Button label={ButtonText} clickEvent={logOut} />}
+          <Logout onClick={logOut}/>
           <p>{SecondaryText}</p>
           <ProfileIcon letter={profileIcon} />
         </div>

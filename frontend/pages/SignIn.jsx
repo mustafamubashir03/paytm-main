@@ -8,18 +8,36 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { verifyContext } from "../context/VerifyContext";
 export default function SignIn() {
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const {userVerify,setUserVerify} = useContext(verifyContext)
+  const { userVerify, setUserVerify } = useContext(verifyContext);
   async function handleSubmit() {
-    const response = await axios
-      .post("http://localhost:3000/api/v1/user/signin", { username, password })
-      .catch((error) => console.log(error));
-    localStorage.setItem("authorization", "Bearer " + response.data.token);
-    setUserVerify(true);
-    console.log("SIgn in "+userVerify);
-    navigate("/");
+    try {
+      const response = await axios
+        .post("http://localhost:3000/api/v1/user/signin", {
+          username,
+          password,
+        })
+        .catch((error) => console.log(error));
+      localStorage.setItem("authorization", "Bearer " + response.data.token);
+      setUserVerify(true);
+      console.log("SIgn in " + userVerify);
+      navigate("/");
+    } catch (error) {
+      if (error.response && error.response.status === 403) {
+        setErrorMessage(
+          "This account isn't registered."
+        );
+      } else if (error.message === "Network Error") {
+        setErrorMessage(
+          "Network error. Please check your connection or try again later."
+        );
+      } else {
+        setErrorMessage("An unexpected error occurred. Please try again.");
+      }
+    }
   }
   return (
     <div className=" h-screen flex justify-center items-center">
@@ -39,6 +57,7 @@ export default function SignIn() {
           type={"text"}
         />
         <Button clickEvent={handleSubmit} label={"Sign in"} />
+        <span className={"text-red-600"}>{errorMessage}</span>
         <div className="flex mb-4 gap-1 w-full justify-center items-center ">
           <span>Don't have an account?</span>
           <Link to="/sign-up">

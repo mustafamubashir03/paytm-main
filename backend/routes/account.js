@@ -18,9 +18,7 @@ accountRouter.post("/transfer", authMiddleware, async (req, res) => {
     const session = await mongoose.startSession();
     await session.startTransaction();
     const to = req.query.to;
-    console.log(to);
     const amount = Number(req.query.amount);
-    console.log(amount);
     const id = req.userId;
     const accountFound = await UserAccount.findOne({ _id: id }).session(
       session
