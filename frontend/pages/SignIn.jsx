@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Body from "../components/Body";
 import Button from "../components/Button";
 import Heading from "../components/Heading";
@@ -6,15 +6,19 @@ import InputBox from "../components/InputBox";
 import LinkButton from "../components/LinkButton";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { verifyContext } from "../context/VerifyContext";
 export default function SignIn() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const {userVerify,setUserVerify} = useContext(verifyContext)
   async function handleSubmit() {
     const response = await axios
       .post("http://localhost:3000/api/v1/user/signin", { username, password })
       .catch((error) => console.log(error));
     localStorage.setItem("authorization", "Bearer " + response.data.token);
+    setUserVerify(true);
+    console.log("SIgn in "+userVerify);
     navigate("/");
   }
   return (

@@ -22,7 +22,7 @@ export default function Dashboard() {
 
   return (
     <div className="bg-slate-800  ">
-      <TopBar HeadingText={"PaymentApp"} SecondaryText={"Hello"} />
+      <TopBar HeadingText={"PaymentApp"} SecondaryText={"Hello"} ButtonText={"Log out"} />
       <div className="py-4 px-4 mb-4 bg-slate-100 text-slate-700 flex text-lg  items-center max-w-screen-md mx-auto rounded-md">
         <p>
           Your balance is

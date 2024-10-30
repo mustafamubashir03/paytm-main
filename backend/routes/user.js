@@ -7,6 +7,17 @@ const { userSchema, logInSchema } = require("../zod.validation");
 const { userUpdateSchema } = require("../zod.validation.js");
 const jwt = require("jsonwebtoken");
 
+
+userRouter.get("/verify",authMiddleware, async(req,res)=>{
+    if (req.userId) {
+      const user = await User.findOne({_id:req.userId})
+      if(user){
+        return res.json({status:true})
+      }
+    }
+})
+
+
 userRouter.post("/signup", async (req, res) => {
   try {
     const userInfo = req.body;
@@ -45,8 +56,8 @@ userRouter.post("/signin", async (req, res) => {
   res.json({ msg: "Successfully authenticated", token: token });
 });
 
-userRouter.put("/:id", authMiddleware, async (req, res) => {
-  const id = req.params.id;
+userRouter.put("/", authMiddleware, async (req, res) => {
+  const id = req.userId;
   const userBody = req.body;
   const updatedDoc = {};
   if (id !== userBody._id) {
