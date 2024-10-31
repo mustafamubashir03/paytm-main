@@ -6,13 +6,12 @@ import Send from "../pages/Send";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import axios from "axios";
-import VerifyContext, { verifyContext } from "../context/VerifyContext";
+import  { verifyContext } from "../context/VerifyContext";
 
 function App() {
   const { userVerify, setUserVerify } = useContext(verifyContext);
-  console.log("userVerify outside useEffect"+ userVerify);
 
   useEffect(() => {
     async function verification() {
@@ -25,7 +24,6 @@ function App() {
         }
       );
       setUserVerify(response.data.status);
-      console.log("useEffect"+userVerify);
     }
     verification();
   }, [userVerify]);

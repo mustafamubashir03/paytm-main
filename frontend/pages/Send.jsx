@@ -17,6 +17,7 @@ export default function Send() {
 
   async function paymentTransfer() {
     try {
+      setError("");
       if (amount <= 0) {
         return;
       }
@@ -31,7 +32,7 @@ export default function Send() {
       );
       navigate("/");
     } catch (error) {
-      setError("Transaction failed");
+      setError("Transaction has been failed");
     }
   }
   return (

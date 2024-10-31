@@ -1,12 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import ProfileIcon from "./ProfileIcon";
 import axios from "axios";
-import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import { verifyContext } from "../context/VerifyContext";
 import Logout from "./Logout";
 
-export default function TopBar({ HeadingText, SecondaryText, ButtonText }) {
+export default function TopBar({ HeadingText, SecondaryText }) {
   const navigate = useNavigate();
   const {setUserVerify} = useContext(verifyContext)
   const [profileIcon, setProfileIcon] = useState("");

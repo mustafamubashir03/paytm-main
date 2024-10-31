@@ -4,10 +4,11 @@ import UserTab from "./UserTab";
 import axios from "axios";
 import Body from "./Body";
 
+
 export default function PaymentSection() {
   const [userData, setUserData] = useState([]);
   const [filter, setFilter] = useState("");
-  localStorage.getItem("token");
+
 
   useEffect(() => {
     async function dataFetch() {
