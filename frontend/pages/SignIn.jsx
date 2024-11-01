@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Body from "../components/Body";
 import Button from "../components/Button";
 import Heading from "../components/Heading";
@@ -6,13 +6,13 @@ import InputBox from "../components/InputBox";
 import LinkButton from "../components/LinkButton";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { verifyContext } from "../context/VerifyContext";
+import useVerify from "../hooks/useVerifyHook";
 export default function SignIn() {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { userVerify, setUserVerify } = useContext(verifyContext);
+  const { setUserVerify } = useVerify();
   async function handleSubmit() {
     try {
       const response = await axios
@@ -27,9 +27,7 @@ export default function SignIn() {
       navigate("/");
     } catch (error) {
       if (error.response && error.response.status === 403) {
-        setErrorMessage(
-          "This account isn't registered."
-        );
+        setErrorMessage("This account isn't registered.");
       } else if (error.message === "Network Error") {
         setErrorMessage(
           "Network error. Please check your connection or try again later."

@@ -1,13 +1,13 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ProfileIcon from "./ProfileIcon";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { verifyContext } from "../context/VerifyContext";
 import Logout from "./Logout";
+import useVerify from "../hooks/useVerifyHook";
 
 export default function TopBar({ HeadingText, SecondaryText }) {
   const navigate = useNavigate();
-  const {setUserVerify} = useContext(verifyContext)
+  const { setUserVerify } = useVerify();
   const [profileIcon, setProfileIcon] = useState("");
   useEffect(() => {
     async function userProfileFetcher() {
@@ -24,7 +24,7 @@ export default function TopBar({ HeadingText, SecondaryText }) {
   function logOut() {
     setUserVerify(false);
     localStorage.removeItem("authorization");
-    navigate("/sign-in")
+    navigate("/sign-in");
   }
 
   return (
@@ -32,7 +32,7 @@ export default function TopBar({ HeadingText, SecondaryText }) {
       <div className="flex justify-between items-center max-w-screen-md mx-auto">
         <h1 className="text-xl font-semibold mb-4 mt-4">{HeadingText}</h1>
         <div className="flex gap-2 items-center">
-          <Logout onClick={logOut}/>
+          <Logout onClick={logOut} />
           <p>{SecondaryText}</p>
           <ProfileIcon letter={profileIcon} />
         </div>

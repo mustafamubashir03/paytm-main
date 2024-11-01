@@ -6,28 +6,11 @@ import Send from "../pages/Send";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignUp from "../pages/SignUp";
 import SignIn from "../pages/SignIn";
-import { useContext, useEffect } from "react";
-import axios from "axios";
-import  { verifyContext } from "../context/VerifyContext";
+import useVerify from "../hooks/useVerifyHook";
 
 function App() {
-  const { userVerify, setUserVerify } = useContext(verifyContext);
 
-  useEffect(() => {
-    async function verification() {
-      const response = await axios.get(
-        "http://localhost:3000/api/v1/user/verify",
-        {
-          headers: {
-            authorization: localStorage.getItem("authorization"),
-          },
-        }
-      );
-      setUserVerify(response.data.status);
-    }
-    verification();
-  }, [userVerify]);
-
+    const {userVerify} = useVerify();
   return (
     <div className="bg-slate-800 w-screen min-h-screen ">
       <BrowserRouter>
