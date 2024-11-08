@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev":"nodemon index.js"
+    "dev": "nodemon index.js",
+    "build": "npm install --prefix ../frontend && npm run build --prefix ../frontend && npm install"
   },
   "keywords": [],
   "author": "",
